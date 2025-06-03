@@ -16,3 +16,19 @@ export async function GET() {
     }
       
 } 
+
+//post method
+export async function POST(request) {
+  try {
+    await mongoose.connect(connectionstr);
+    const payload = await request.json();
+    console.log("connected");
+   let product = new Product(payload);
+   const result = await product.save();
+    console.log(result);
+    return NextResponse.json({result,sucess:true})
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
